@@ -1,15 +1,9 @@
-// 620cd6d634fd62156585865c
-// https://hubemmd-34fa.restdb.io/rest/bed-fashion?max=20
-
 const urlParams = new URLSearchParams(window.location.search);
-const query = urlParams.get("category");
-const options = {
-  headers: { "x-apikey": "620cd6d634fd62156585865c" },
-};
-const url = `https://hubemmd-34fa.restdb.io/rest/bed-fashion?max=20&q={"category" : {"$in" : ["${query}"]}}`;
+
+const url = `https://hubkur.dk/databases1/wp-json/wp/v2/real_estate`;
 // const url = "https://hubemmd-34fa.restdb.io/rest/bed-fashion?max=20" + query;
 
-fetch(url, options)
+fetch(url)
   .then((response) => {
     if (!response.ok) {
       throw Error(response.statusText);
@@ -32,44 +26,20 @@ function showProduct(product) {
   const copy = template.cloneNode(true);
   // change content
 
-  document.querySelector(
-    " .breadcrumbs .breadcrumb_3"
-  ).textContent = `${query}`;
-  copy.querySelector(".description h3").textContent = product.name;
-  copy.querySelector(".description .price").textContent =
-    "DKK " + product.price + ",-";
+  copy.querySelector(".description").textContent = product.estate_name;
+  copy.querySelector(".beds_detail").textContent = product.bedrooms;
+  copy.querySelector(".bath_detail").textContent = product.bathrooms;
+  copy.querySelector(".feet_detail").textContent = product.sq_feet;
+  // copy.querySelector(
+  //   ".smallProduct img"
+  // ).src = `https://hubkur.dk/databases1/wp-content/uploads/2022/03/house_2.jpg`;
+  copy.querySelector(".smallProduct img").src = product.image.guid;
 
-  copy.querySelector(
-    ".smallProduct img"
-  ).src = `http://hubkur.dk/images_mattress/${product._id}.jpg`;
+  // document.body.style.backgroundImage = "url('img_tree.png')
 
-  copy
-    .querySelector(".arrow")
-    .setAttribute("href", `product.html?id=${product._id}`);
-
-  if (product.favourite == true) {
-    copy.querySelector(".favourite").classList.remove("hidden");
-  }
-
+  // ).src = `https://hubkur.dk/databases1/wp-content/uploads/2022/03/house_${product._id}.jpg`;
   // grab parent
   const parent = document.querySelector("#productlistGrid");
   // append
   parent.appendChild(copy);
 }
-
-//      button           button             button
-window.addEventListener("load", start_screen);
-
-function start_screen() {
-  document.querySelector("#burger_1").addEventListener("click", open_menu);
-  document.querySelector("#burgerMenu2").addEventListener("click", close_menu);
-}
-
-function open_menu() {
-  document.querySelector("#burgerMenu2").classList.remove("hidden");
-}
-function close_menu() {
-  document.querySelector("#burgerMenu2").classList.add("hidden");
-}
-
-//      button           button             button
